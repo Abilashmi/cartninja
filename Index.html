@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CartNinja — Turn Your Cart Into a Revenue Engine</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+  :root {
+    --bg: #0e0800;
+    --surface: #140c00;
+    --surface2: #1c1100;
+    --border: rgba(255,140,0,0.10);
+    --accent: #f97316;
+    --accent-light: #fb923c;
+    --accent-soft: #fdba74;
+    --accent2: #f59e0b;
+    --accent3: #fbbf24;
+    --green: #10b981;
+    --orange: #f97316;
+    --text: #fff8f0;
+    --muted: #a8896a;
+    --card: rgba(255,140,0,0.05);
+
+    --grad-primary: linear-gradient(135deg, #ea580c, #f59e0b);
+    --grad-secondary: linear-gradient(135deg, #f97316, #fbbf24);
+    --glow-orange: rgba(249,115,22,0.28);
+    --glow-amber: rgba(245,158,11,0.18);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: .4;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 5vw;
+    backdrop-filter: blur(20px);
+    background: rgba(14,8,0,0.85);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .logo-icon {
+    width: 32px; height: 32px;
+    background: var(--grad-primary);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .95rem;
+    box-shadow: 0 0 16px rgba(249,115,22,0.55);
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: .9rem; transition: color .2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    background: var(--grad-primary);
+    color: #fff;
+    border: none;
+    padding: .55rem 1.3rem;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+    text-decoration: none;
+  }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(249,115,22,.5); }
+
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 7rem 5vw 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute;
+    top: -150px; left: 50%;
+    transform: translateX(-50%);
+    width: 900px; height: 700px;
+    background: radial-gradient(ellipse, rgba(249,115,22,.22) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-glow2 {
+    position: absolute;
+    bottom: -80px; right: -80px;
+    width: 500px; height: 500px;
+    background: radial-gradient(ellipse, rgba(245,158,11,.12) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(249,115,22,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(249,115,22,.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%);
+  }
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: rgba(249,115,22,.12);
+    border: 1px solid rgba(249,115,22,.3);
+    color: #fdba74;
+    padding: .4rem 1rem;
+    border-radius: 100px;
+    font-size: .8rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    animation: fadeUp .6s ease both;
+  }
+  .hero-badge span { width: 6px; height: 6px; background: var(--accent3); border-radius: 50%; display: inline-block; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+  .hero h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(2.6rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    animation: fadeUp .7s .1s ease both;
+  }
+  .hero h1 em {
+    font-style: normal;
+    background: var(--grad-secondary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    margin-top: 1.2rem;
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 480px;
+    animation: fadeUp .7s .2s ease both;
+    line-height: 1.7;
+  }
+  .hero-actions {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: fadeUp .7s .3s ease both;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: var(--grad-primary);
+    color: #fff;
+    padding: .85rem 1.8rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+    border: none; cursor: pointer;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(249,115,22,.5); }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: var(--card);
+    color: var(--text);
+    padding: .85rem 1.8rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    transition: background .2s, border-color .2s;
+  }
+  .btn-secondary:hover { background: rgba(255,140,0,.08); border-color: rgba(249,115,22,.25); }
+  .hero-stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2.5rem;
+    animation: fadeUp .7s .4s ease both;
+  }
+  .hero-stat strong {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: var(--grad-secondary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-stat span { font-size: .8rem; color: var(--muted); }
+
+  .cart-preview {
+    animation: fadeUp .8s .2s ease both;
+    position: relative;
+  }
+  .cart-window {
+    background: #130900;
+    border: 1px solid rgba(249,115,22,.22);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(249,115,22,.08), 0 0 60px rgba(249,115,22,.1);
+  }
+  .cart-header {
+    background: #0e0600;
+    padding: 1rem 1.2rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .cart-header-title { font-family: 'Poppins', sans-serif; font-size: .9rem; font-weight: 700; }
+  .cart-close { color: var(--muted); font-size: 1.2rem; cursor: pointer; }
+  .cart-body { padding: 1rem; display: flex; flex-direction: column; gap: 1rem; }
+
+  .progress-box {
+    background: rgba(251,191,36,.07);
+    border: 1px solid rgba(251,191,36,.2);
+    border-radius: 12px;
+    padding: .9rem 1rem;
+  }
+  .progress-label { font-size: .78rem; color: var(--muted); margin-bottom: .5rem; }
+  .progress-label strong { color: var(--accent3); }
+  .progress-track {
+    height: 6px;
+    background: rgba(255,255,255,.06);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 62%;
+    background: var(--grad-secondary);
+    border-radius: 100px;
+    animation: progressAnim 2s ease both;
+  }
+  @keyframes progressAnim { from{width:0} to{width:62%} }
+
+  .cart-item { display: flex; gap: .8rem; align-items: center; }
+  .cart-item-img {
+    width: 50px; height: 50px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #2a1200, #1a0c00);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+  .cart-item-info { flex: 1; }
+  .cart-item-name { font-size: .83rem; font-weight: 500; }
+  .cart-item-price { font-size: .78rem; color: var(--muted); }
+  .cart-item-qty { display: flex; align-items: center; gap: .4rem; }
+  .qty-btn {
+    width: 22px; height: 22px;
+    background: rgba(255,140,0,.08);
+    border: 1px solid rgba(249,115,22,.15);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .75rem; cursor: pointer;
+  }
+  .qty-num { font-size: .83rem; min-width: 16px; text-align: center; }
+
+  .coupon-box {
+    background: rgba(16,185,129,.06);
+    border: 1px solid rgba(16,185,129,.2);
+    border-radius: 12px;
+    padding: .8rem 1rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .coupon-left { display: flex; align-items: center; gap: .5rem; font-size: .82rem; }
+  .coupon-code { font-weight: 600; color: #34d399; }
+  .coupon-applied { font-size: .72rem; color: #34d399; background: rgba(16,185,129,.1); border: 1px solid rgba(16,185,129,.2); padding: .2rem .6rem; border-radius: 100px; }
+
+  .upsell-card {
+    background: linear-gradient(135deg, rgba(249,115,22,.1), rgba(245,158,11,.06));
+    border: 1px solid rgba(249,115,22,.22);
+    border-radius: 12px;
+    padding: .9rem 1rem;
+  }
+  .upsell-label { font-size: .72rem; font-weight: 600; color: var(--accent-soft); text-transform: uppercase; letter-spacing: .05em; margin-bottom: .6rem; }
+  .upsell-row { display: flex; align-items: center; gap: .8rem; }
+  .upsell-img {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, #2a1200, #1a0c00);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0;
+  }
+  .upsell-info { flex: 1; }
+  .upsell-name { font-size: .82rem; font-weight: 500; }
+  .upsell-price { font-size: .78rem; color: var(--muted); }
+  .upsell-price s { color: rgba(255,255,255,.25); }
+  .upsell-add {
+    background: var(--grad-primary);
+    color: #fff;
+    border: none;
+    padding: .4rem .9rem;
+    border-radius: 8px;
+    font-size: .78rem;
+    font-weight: 600;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: box-shadow .2s;
+  }
+  .upsell-add:hover { box-shadow: 0 4px 14px rgba(249,115,22,.45); }
+
+  .cart-total {
+    border-top: 1px solid var(--border);
+    padding: 1rem 1.2rem;
+    display: flex; flex-direction: column; gap: .8rem;
+  }
+  .cart-total-row { display: flex; justify-content: space-between; font-size: .9rem; }
+  .cart-total-row.big { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.05rem; }
+  .checkout-btn {
+    width: 100%;
+    background: var(--grad-primary);
+    color: #fff;
+    border: none;
+    padding: .9rem;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .checkout-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(249,115,22,.45); }
+
+  .floating-badge {
+    position: absolute;
+    top: -16px; right: -16px;
+    background: linear-gradient(135deg, var(--accent3), var(--accent));
+    color: #1a0800;
+    font-family: 'Poppins', sans-serif;
+    font-size: .75rem;
+    font-weight: 800;
+    padding: .5rem 1rem;
+    border-radius: 100px;
+    white-space: nowrap;
+    box-shadow: 0 4px 16px rgba(249,115,22,.5);
+  }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+  section { padding: 5rem 5vw; }
+  .section-label {
+    font-size: .75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    color: var(--accent-soft);
+    margin-bottom: .8rem;
+  }
+  .section-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 800;
+    line-height: 1.15;
+    max-width: 700px;
+  }
+  .section-sub {
+    margin-top: .8rem;
+    color: var(--muted);
+    max-width: 560px;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  .center { text-align: center; }
+  .center .section-title, .center .section-sub { margin-left: auto; margin-right: auto; }
+
+  .logos-section {
+    padding: 2.5rem 5vw;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: rgba(249,115,22,.02);
+  }
+  .logos-label { text-align: center; font-size: .75rem; color: var(--muted); margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: .12em; }
+  .logos-track { display: flex; justify-content: center; align-items: center; gap: 2.5rem; flex-wrap: wrap; }
+  .logo-pill {
+    background: rgba(249,115,22,.07);
+    border: 1px solid rgba(249,115,22,.18);
+    border-radius: 100px;
+    padding: .5rem 1.4rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: .85rem;
+    font-weight: 700;
+    color: var(--muted);
+    white-space: nowrap;
+    transition: border-color .2s, color .2s;
+  }
+  .logo-pill:hover { border-color: rgba(249,115,22,.45); color: var(--accent-soft); }
+
+  .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .testi-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: border-color .3s, transform .3s;
+  }
+  .testi-card:hover { border-color: rgba(249,115,22,.3); transform: translateY(-4px); }
+  .testi-stars { color: #fbbf24; font-size: .9rem; margin-bottom: .8rem; }
+  .testi-text { color: var(--muted); font-size: .9rem; line-height: 1.65; }
+  .testi-author { margin-top: 1.2rem; display: flex; align-items: center; gap: .7rem; }
+  .testi-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+  }
+  .testi-name { font-size: .85rem; font-weight: 600; }
+  .testi-store { font-size: .75rem; color: var(--muted); }
+
+  .features-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.2rem; margin-top: 3rem; }
+  .feature-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem 1.2rem;
+    transition: border-color .3s, background .3s, transform .3s;
+    cursor: default;
+  }
+  .feature-card:hover { border-color: rgba(249,115,22,.3); background: rgba(249,115,22,.06); transform: translateY(-4px); }
+  .feature-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  .feature-name { font-family: 'Poppins', sans-serif; font-size: .95rem; font-weight: 700; margin-bottom: .4rem; }
+  .feature-desc { font-size: .82rem; color: var(--muted); line-height: 1.55; }
+
+  .how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; position: relative; }
+  .how-grid::before {
+    content: '';
+    position: absolute;
+    top: 2.5rem;
+    left: calc(16.66% + 1rem);
+    right: calc(16.66% + 1rem);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+  .how-step {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: border-color .3s, transform .3s;
+  }
+  .how-step:hover { border-color: rgba(249,115,22,.3); transform: translateY(-4px); }
+  .step-num { font-family: 'Poppins', sans-serif; font-size: 3rem; font-weight: 800; color: rgba(249,115,22,.15); line-height: 1; margin-bottom: .8rem; }
+  .step-icon {
+    width: 52px; height: 52px;
+    background: var(--grad-primary);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 8px 20px rgba(249,115,22,.35);
+  }
+  .step-title { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: .5rem; }
+  .step-desc { color: var(--muted); font-size: .88rem; line-height: 1.65; }
+
+  .benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+  .benefit-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    display: flex; gap: 1.2rem; align-items: flex-start;
+    transition: border-color .3s, transform .3s;
+  }
+  .benefit-card:hover { border-color: rgba(245,158,11,.25); transform: translateY(-3px); }
+  .benefit-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+  .benefit-title { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: .4rem; }
+  .benefit-desc { color: var(--muted); font-size: .88rem; line-height: 1.65; }
+
+  .analytics-section { background: var(--surface); }
+  .analytics-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .analytics-card {
+    background: #0e0800;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.5rem;
+    overflow: hidden;
+    transition: border-color .3s;
+  }
+  .analytics-card:hover { border-color: rgba(249,115,22,.28); }
+  .analytics-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.2rem; }
+  .analytics-card-label { font-size: .78rem; color: var(--muted); margin-bottom: .3rem; }
+  .analytics-card-value { font-family: 'Poppins', sans-serif; font-size: 1.8rem; font-weight: 800; }
+  .analytics-card-delta { font-size: .75rem; font-weight: 600; padding: .25rem .6rem; border-radius: 100px; }
+  .delta-up { background: rgba(16,185,129,.1); color: #34d399; }
+  .delta-warn { background: rgba(249,115,22,.1); color: #fb923c; }
+  .mini-chart { height: 70px; display: flex; align-items: flex-end; gap: 4px; }
+  .bar { flex: 1; border-radius: 4px 4px 0 0; animation: barUp .8s ease both; }
+  @keyframes barUp { from{transform:scaleY(0);transform-origin:bottom} to{transform:scaleY(1)} }
+  .sparkline { width: 100%; height: 60px; }
+
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; align-items: start; }
+  .pricing-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 2rem;
+    position: relative;
+    transition: transform .3s;
+  }
+  .pricing-card:hover { transform: translateY(-6px); }
+  .pricing-card.featured {
+    background: linear-gradient(160deg, rgba(249,115,22,.12), rgba(245,158,11,.06));
+    border-color: rgba(249,115,22,.38);
+    box-shadow: 0 0 0 1px rgba(249,115,22,.15), 0 24px 48px rgba(249,115,22,.13);
+  }
+  .pricing-badge {
+    position: absolute;
+    top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--grad-primary);
+    color: #fff;
+    font-size: .72rem;
+    font-weight: 700;
+    padding: .3rem .9rem;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+  .pricing-plan { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: .95rem; color: var(--muted); margin-bottom: .5rem; }
+  .pricing-price { font-family: 'Poppins', sans-serif; font-size: 2.8rem; font-weight: 800; line-height: 1; margin-bottom: .3rem; }
+  .pricing-price sup { font-size: 1.2rem; vertical-align: top; margin-top: .6rem; }
+  .pricing-price sub { font-size: .9rem; color: var(--muted); font-weight: 400; }
+  .pricing-desc { font-size: .85rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.55; }
+  .pricing-features { list-style: none; display: flex; flex-direction: column; gap: .65rem; margin-bottom: 1.8rem; }
+  .pricing-features li { font-size: .87rem; display: flex; align-items: center; gap: .6rem; color: var(--muted); }
+  .pricing-features li::before { content: '✓'; color: #34d399; font-weight: 700; font-size: .9rem; }
+  .pricing-features li.off::before { content: '×'; color: rgba(255,255,255,.2); }
+  .pricing-features li.off { opacity: .5; }
+  .pricing-btn { width: 100%; padding: .85rem; border-radius: 10px; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: .95rem; cursor: pointer; border: none; transition: transform .2s, box-shadow .2s; }
+  .pricing-btn.outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+  .pricing-btn.outline:hover { border-color: rgba(249,115,22,.4); background: rgba(249,115,22,.06); }
+  .pricing-btn.solid { background: var(--grad-primary); color: #fff; }
+  .pricing-btn.solid:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(249,115,22,.45); }
+
+  .final-cta { text-align: center; padding: 6rem 5vw; position: relative; overflow: hidden; }
+  .final-cta-glow {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px; height: 400px;
+    background: radial-gradient(ellipse, rgba(249,115,22,.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .final-cta h2 { font-family: 'Poppins', sans-serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; margin-bottom: 1rem; }
+  .final-cta p { color: var(--muted); font-size: 1.05rem; margin-bottom: 2rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .final-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 5vw;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+  }
+  footer p { color: var(--muted); font-size: .82rem; }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { color: var(--muted); text-decoration: none; font-size: .82rem; transition: color .2s; }
+  .footer-links a:hover { color: var(--text); }
+
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .cart-preview { display: none; }
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .how-grid { grid-template-columns: 1fr; }
+    .how-grid::before { display: none; }
+    .benefits-grid { grid-template-columns: 1fr; }
+    .analytics-cards { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 600px) {
+    .features-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-icon"><i class="fa-solid fa-user-ninja"></i></div>
+    CartNinja
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#how">How it Works</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#demo">Demo</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Install on Shopify →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span></span>
+        Now with AI-powered upsells · v2.0
+      </div>
+      <h1>Turn Your Cart Into a <em>Revenue Engine</em></h1>
+      <p class="hero-sub">Smart discounts, AI upsells, and cart optimization — everything you need to grow AOV without spending more on ads.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary"><i class="fa-solid fa-cart-shopping"></i> Install on Shopify</a>
+        <a href="#demo" class="btn-secondary"><i class="fa-solid fa-play"></i> View Demo</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><strong>+34%</strong><span>Avg AOV increase</span></div>
+        <div class="hero-stat"><strong>4,200+</strong><span>Active stores</span></div>
+        <div class="hero-stat"><strong>$12M+</strong><span>Extra revenue driven</span></div>
+      </div>
+    </div>
+
+    <div class="cart-preview">
+      <div class="floating-badge"><i class="fa-solid fa-fire"></i> +$12.40 upsell added!</div>
+      <div class="cart-window">
+        <div class="cart-header">
+          <span class="cart-header-title">Your Cart (3)</span>
+          <span class="cart-close"><i class="fa-solid fa-xmark"></i></span>
+        </div>
+        <div class="cart-body">
+          <div class="progress-box">
+            <div class="progress-label">Spend <strong>$23 more</strong> to unlock FREE shipping <i class="fa-solid fa-rocket"></i></div>
+            <div class="progress-track"><div class="progress-fill"></div></div>
+          </div>
+          <div class="cart-item">
+            <div class="cart-item-img"><i class="fa-solid fa-shoe-prints"></i></div>
+            <div class="cart-item-info">
+              <div class="cart-item-name">Premium Sneakers</div>
+              <div class="cart-item-price">$89.99</div>
+            </div>
+            <div class="cart-item-qty">
+              <div class="qty-btn">−</div>
+              <span class="qty-num">1</span>
+              <div class="qty-btn">+</div>
+            </div>
+          </div>
+          <div class="cart-item">
+            <div class="cart-item-img"><i class="fa-solid fa-hat-cowboy"></i></div>
+            <div class="cart-item-info">
+              <div class="cart-item-name">Logo Cap</div>
+              <div class="cart-item-price">$34.99</div>
+            </div>
+            <div class="cart-item-qty">
+              <div class="qty-btn">−</div>
+              <span class="qty-num">2</span>
+              <div class="qty-btn">+</div>
+            </div>
+          </div>
+          <div class="coupon-box">
+            <div class="coupon-left">
+              <span><i class="fa-solid fa-tag"></i></span>
+              <span>Code <span class="coupon-code">SAVE15</span> applied</span>
+            </div>
+            <span class="coupon-applied">−$15.00 <i class="fa-solid fa-check"></i></span>
+          </div>
+          <div class="upsell-card">
+            <div class="upsell-label"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Recommended for you</div>
+            <div class="upsell-row">
+              <div class="upsell-img"><i class="fa-solid fa-pump-soap"></i></div>
+              <div class="upsell-info">
+                <div class="upsell-name">Shoe Care Kit</div>
+                <div class="upsell-price"><s>$24.99</s> → $12.40</div>
+              </div>
+              <button class="upsell-add">+ Add</button>
+            </div>
+          </div>
+        </div>
+        <div class="cart-total">
+          <div class="cart-total-row"><span>Subtotal</span><span>$174.98</span></div>
+          <div class="cart-total-row"><span>Discount</span><span style="color:#34d399">−$15.00</span></div>
+          <div class="cart-total-row big"><span>Total</span><span>$159.98</span></div>
+          <button class="checkout-btn">Checkout <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGOS -->
+<div class="logos-section reveal">
+  <div class="logos-label">Trusted by Shopify stores worldwide</div>
+  <div class="logos-track">
+    <div class="logo-pill">Aadhya herbal care</div>
+    <div class="logo-pill">Sri aishwaryam</div>
+    <div class="logo-pill">Lushra</div>
+    <div class="logo-pill">Mad minimalist</div>
+    <div class="logo-pill">Elther</div>
+    <div class="logo-pill">Blackape</div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="center reveal">
+    <div class="section-label">Social Proof</div>
+    <h2 class="section-title">Store owners love CartNinja</h2>
+  </div>
+  <div class="testimonials-grid reveal">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"CartNinja's AI upsells literally doubled our average order value in 2 weeks. The coupon system is slick and the cart drawer looks incredible."</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:linear-gradient(135deg,#ea580c,#f59e0b)">N</div>
+        <div><div class="testi-name">Nandhini</div><div class="testi-store">Aadhya herbal care</div></div>
+      </div>
+    </div>
+    <div class="testi-card" style="border-color:rgba(249,115,22,.22)">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Setup took 10 minutes. The progress bar showing free shipping threshold alone reduced our cart abandonment by 22%. Insane ROI."</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:linear-gradient(135deg,#f97316,#fbbf24)">G</div>
+        <div><div class="testi-name">Gurudev</div><div class="testi-store">Lushra</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Coupon slider is underrated<br>
+I didn’t expect much from this, but it actually made a difference. Customers don’t have to search for discount codes anymore — they just pick one directly in the cart and apply it instantly. </p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:linear-gradient(135deg,#fb923c,#f97316)">A</div>
+        <div><div class="testi-name">Althaf Ruman</div><div class="testi-store">Elther</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" style="background:var(--surface)">
+  <div class="center reveal">
+    <div class="section-label">Features</div>
+    <h2 class="section-title">Everything your cart needs. Nothing it doesn't.</h2>
+    <p class="section-sub">Five powerful modules that work together seamlessly — inside your existing Shopify checkout.</p>
+  </div>
+  <div class="features-grid reveal">
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(245,158,11,.12);color:#fbbf24"><i class="fa-solid fa-tag"></i></div>
+      <div class="feature-name">Discount Management</div>
+      <p class="feature-desc">Stack, auto-apply, and limit coupon codes with granular rules. No more coupon abuse.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(249,115,22,.12);color:#fdba74"><i class="fa-solid fa-cart-shopping"></i></div>
+      <div class="feature-name">Smart Cart Drawer</div>
+      <p class="feature-desc">A lightning-fast slide-out cart with shipping progress bars, custom branding, and trust badges.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(234,88,12,.12);color:#fb923c"><i class="fa-solid fa-robot"></i></div>
+      <div class="feature-name">AI Upsells</div>
+      <p class="feature-desc">GPT-powered product recommendations served at the perfect moment in the buying journey.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(16,185,129,.1);color:#6ee7b7"><i class="fa-solid fa-box"></i></div>
+      <div class="feature-name">Product Widgets</div>
+      <p class="feature-desc">Embed buy-now, bundles, and quantity breaks anywhere on your storefront with zero code.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(251,191,36,.12);color:#fde68a"><i class="fa-solid fa-chart-column"></i></div>
+      <div class="feature-name">Analytics Dashboard</div>
+      <p class="feature-desc">See exactly which upsells, coupons, and widgets are driving revenue — in real time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INTERACTIVE DEMO -->
+<section id="demo">
+  <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;max-width:1100px;margin:0 auto">
+    <div>
+      <div class="section-label">Interactive Preview</div>
+      <h2 class="section-title">See the magic in action</h2>
+      <p class="section-sub">The CartNinja drawer adapts in real time — showing the right offer to the right customer at the right moment.</p>
+      <div style="margin-top:1.5rem;display:flex;flex-direction:column;gap:.8rem">
+        <div style="display:flex;align-items:center;gap:.8rem;font-size:.88rem;color:var(--muted)">
+          <span style="width:8px;height:8px;background:var(--accent3);border-radius:50%;flex-shrink:0"></span>
+          Live progress bar to free shipping
+        </div>
+        <div style="display:flex;align-items:center;gap:.8rem;font-size:.88rem;color:var(--muted)">
+          <span style="width:8px;height:8px;background:var(--accent);border-radius:50%;flex-shrink:0"></span>
+          AI upsell cards with real-time pricing
+        </div>
+        <div style="display:flex;align-items:center;gap:.8rem;font-size:.88rem;color:var(--muted)">
+          <span style="width:8px;height:8px;background:#34d399;border-radius:50%;flex-shrink:0"></span>
+           Copy coupon application
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--surface2);border:1px solid rgba(249,115,22,.15);border-radius:20px;overflow:hidden;box-shadow:0 24px 48px rgba(0,0,0,.4)">
+      <div style="background:var(--surface);padding:.8rem 1rem;border-bottom:1px solid var(--border);display:flex;gap:.5rem">
+        <span style="width:10px;height:10px;border-radius:50%;background:#ff5f57"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#febc2e"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#28c840"></span>
+      </div>
+      <div style="padding:1.2rem;display:flex;flex-direction:column;gap:1rem">
+        <div>
+          <div style="font-size:.75rem;color:var(--muted);margin-bottom:.4rem">Cart Value</div>
+          <input type="range" id="cartSlider" min="20" max="200" value="77" style="width:100%;accent-color:var(--accent)" oninput="updateDemo(this.value)">
+          <div style="display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);margin-top:.2rem"><span>$20</span><span id="cartVal">$77</span><span>$200</span></div>
+        </div>
+        <div style="background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.18);border-radius:10px;padding:.8rem">
+          <div style="font-size:.75rem;color:var(--muted);margin-bottom:.4rem" id="progressMsg">Add <strong style="color:var(--accent3)">$23</strong> more for FREE shipping!</div>
+          <div style="height:6px;background:rgba(255,255,255,.07);border-radius:100px;overflow:hidden">
+            <div id="demoBar" style="height:100%;width:62%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:100px;transition:width .4s ease"></div>
+          </div>
+        </div>
+        <div style="background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.22);border-radius:10px;padding:.8rem">
+          <div style="font-size:.72rem;font-weight:600;color:var(--accent-soft);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.6rem">🤖 AI Upsell</div>
+          <div style="display:flex;align-items:center;gap:.8rem">
+            <div style="width:36px;height:36px;background:linear-gradient(135deg,#2a1200,#1a0c00);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0" id="upsellEmoji">🧴</div>
+            <div style="flex:1">
+              <div style="font-size:.82rem;font-weight:500" id="upsellName">Shoe Care Kit</div>
+              <div style="font-size:.75rem;color:var(--muted)" id="upsellPrice"><s>$24.99</s> → $12.40</div>
+            </div>
+            <button onclick="cycleUpsell()" style="background:var(--grad-primary);color:#fff;border:none;padding:.35rem .8rem;border-radius:7px;font-size:.75rem;font-weight:600;cursor:pointer">+ Add</button>
+          </div>
+        </div>
+        <div id="addedMsg" style="display:none;text-align:center;font-size:.8rem;color:#34d399;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.15);border-radius:8px;padding:.5rem">✓ Added to cart! AOV increased 🎉</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" style="background:var(--surface)">
+  <div class="center reveal">
+    <div class="section-label">Process</div>
+    <h2 class="section-title">Up and running in under 10 minutes</h2>
+  </div>
+  <div class="how-grid reveal">
+    <div class="how-step">
+      <div class="step-num">01</div>
+      <div class="step-icon"><i class="fa-solid fa-box"></i></div>
+      <div class="step-title">Install the App</div>
+      <p class="step-desc">One-click install from the Shopify App Store. No code, no theme edits, no developer needed. CartNinja injects automatically.</p>
+    </div>
+    <div class="how-step">
+      <div class="step-num">02</div>
+      <div class="step-icon"><i class="fa-solid fa-palette"></i></div>
+      <div class="step-title">Customize Your Cart & Offers</div>
+      <p class="step-desc">Use our visual editor to style your cart drawer, set up discount rules, configure upsell logic, and design your progress bar.</p>
+    </div>
+    <div class="how-step">
+      <div class="step-num">03</div>
+      <div class="step-icon"><i class="fa-solid fa-chart-line"></i></div>
+      <div class="step-title">Watch AOV Grow Automatically</div>
+      <p class="step-desc">CartNinja runs 24/7, serving the right upsells to the right customers. You watch the revenue dashboard go up.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section id="benefits">
+  <div class="reveal">
+    <div class="section-label">Why CartNinja</div>
+    <h2 class="section-title">More revenue, less effort.</h2>
+    <p class="section-sub">Built specifically for Shopify stores that want to grow without growing their ad budget.</p>
+  </div>
+  <div class="benefits-grid reveal">
+    <div class="benefit-card">
+      <div class="benefit-icon" style="background:rgba(249,115,22,.1);color:#fdba74"><i class="fa-solid fa-sack-dollar"></i></div>
+      <div>
+        <div class="benefit-title">Increase Average Order Value</div>
+        <p class="benefit-desc">AI upsells, bundles, and progress bars guide customers to spend more — naturally. Our stores average a 34% AOV lift within 30 days.</p>
+      </div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon" style="background:rgba(245,158,11,.1);color:#fcd34d"><i class="fa-solid fa-bullseye"></i></div>
+      <div>
+        <div class="benefit-title">Reduce Cart Abandonment</div>
+        <p class="benefit-desc">The smart cart drawer keeps shoppers engaged at checkout with shipping incentives, trust signals, and auto-applied discounts.</p>
+      </div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon" style="background:rgba(234,88,12,.1);color:#fb923c"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+      <div>
+        <div class="benefit-title">Better Shopping UX</div>
+        <p class="benefit-desc">A buttery-smooth cart drawer that feels native to your brand. Customers notice the quality — and convert at higher rates.</p>
+      </div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon" style="background:rgba(16,185,129,.1);color:#6ee7b7"><i class="fa-solid fa-chart-column"></i></div>
+      <div>
+        <div class="benefit-title">Data-Driven Decisions</div>
+        <p class="benefit-desc">Know exactly what's working. Real-time charts on upsell acceptance, coupon redemption, and revenue attribution — no guesswork.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANALYTICS -->
+<section class="analytics-section">
+  <div class="center reveal">
+    <div class="section-label">Analytics</div>
+    <h2 class="section-title">Your revenue, visualized in real time</h2>
+    <p class="section-sub">A command center for your cart performance — no spreadsheets required.</p>
+  </div>
+  <div class="analytics-cards reveal">
+    <div class="analytics-card">
+      <div class="analytics-card-header">
+        <div>
+          <div class="analytics-card-label">Monthly Revenue</div>
+          <div class="analytics-card-value">$84,210</div>
+        </div>
+        <span class="analytics-card-delta delta-up">↑ 34%</span>
+      </div>
+      <svg class="sparkline" viewBox="0 0 200 60" fill="none">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f97316" stop-opacity=".3"/>
+            <stop offset="100%" stop-color="#f97316" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path d="M0,55 L25,48 L50,40 L75,44 L100,30 L125,22 L150,15 L175,10 L200,5" stroke="#f97316" stroke-width="2" fill="none"/>
+        <path d="M0,55 L25,48 L50,40 L75,44 L100,30 L125,22 L150,15 L175,10 L200,5 L200,60 L0,60Z" fill="url(#g1)"/>
+      </svg>
+    </div>
+    <div class="analytics-card">
+      <div class="analytics-card-header">
+        <div>
+          <div class="analytics-card-label">Upsell Revenue</div>
+          <div class="analytics-card-value">$23,840</div>
+        </div>
+        <span class="analytics-card-delta delta-up">↑ 58%</span>
+      </div>
+      <div class="mini-chart">
+        <div class="bar" style="height:30%;background:rgba(245,158,11,.4);animation-delay:.0s"></div>
+        <div class="bar" style="height:45%;background:rgba(245,158,11,.5);animation-delay:.05s"></div>
+        <div class="bar" style="height:40%;background:rgba(245,158,11,.4);animation-delay:.1s"></div>
+        <div class="bar" style="height:60%;background:rgba(245,158,11,.55);animation-delay:.15s"></div>
+        <div class="bar" style="height:55%;background:rgba(245,158,11,.5);animation-delay:.2s"></div>
+        <div class="bar" style="height:70%;background:rgba(245,158,11,.65);animation-delay:.25s"></div>
+        <div class="bar" style="height:80%;background:rgba(245,158,11,.75);animation-delay:.3s"></div>
+        <div class="bar" style="height:90%;background:#f59e0b;animation-delay:.35s"></div>
+      </div>
+    </div>
+    <div class="analytics-card">
+      <div class="analytics-card-header">
+        <div>
+          <div class="analytics-card-label">Coupon Redemptions</div>
+          <div class="analytics-card-value">3,421</div>
+        </div>
+        <span class="analytics-card-delta delta-warn">↑ 12%</span>
+      </div>
+      <svg class="sparkline" viewBox="0 0 200 60" fill="none">
+        <defs>
+          <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#fbbf24" stop-opacity=".3"/>
+            <stop offset="100%" stop-color="#fbbf24" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path d="M0,50 L25,42 L50,46 L75,35 L100,38 L125,28 L150,32 L175,20 L200,15" stroke="#fbbf24" stroke-width="2" fill="none"/>
+        <path d="M0,50 L25,42 L50,46 L75,35 L100,38 L125,28 L150,32 L175,20 L200,15 L200,60 L0,60Z" fill="url(#g2)"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="center reveal">
+    <div class="section-label">Pricing</div>
+    <h2 class="section-title">Start free. Scale as you grow.</h2>
+    <p class="section-sub">No revenue share, no hidden fees. Just flat monthly pricing that pays for itself.</p>
+  </div>
+  <div class="pricing-grid reveal">
+    <div class="pricing-card">
+      <div class="pricing-plan">Free</div>
+      <div class="pricing-price"><sup>$</sup>0<sub>/mo</sub></div>
+      <div class="pricing-desc">Perfect for stores just getting started.</div>
+      <ul class="pricing-features">
+        <li>Smart Cart Drawer</li>
+        <li>Basic Discount Rules</li>
+        <li>Shipping Progress Bar</li>
+        <li class="off">AI Upsells</li>
+        <li class="off">Analytics Dashboard</li>
+        <li class="off">Product Widgets</li>
+      </ul>
+      <button class="pricing-btn outline">Get Started Free</button>
+    </div>
+    <div class="pricing-card featured">
+      <div class="pricing-badge">Most Popular</div>
+      <div class="pricing-plan">Growth</div>
+      <div class="pricing-price"><sup>$</sup>29<sub>/mo</sub></div>
+      <div class="pricing-desc">For growing Shopify stores ready to scale AOV.</div>
+      <ul class="pricing-features">
+        <li>Everything in Free</li>
+        <li>AI Upsells (up to 500/mo)</li>
+        <li>Analytics Dashboard</li>
+        <li>Product Widgets</li>
+        <li>Advanced Discount Stacking</li>
+        <li class="off">Priority Support</li>
+      </ul>
+      <button class="pricing-btn solid">Start Free Trial</button>
+    </div>
+    <div class="pricing-card">
+      <div class="pricing-plan">Pro</div>
+      <div class="pricing-price"><sup>$</sup>79<sub>/mo</sub></div>
+      <div class="pricing-desc">For high-volume stores that need everything, unlocked.</div>
+      <ul class="pricing-features">
+        <li>Everything in Growth</li>
+        <li>Unlimited AI Upsells</li>
+        <li>Custom Cart Branding</li>
+        <li>A/B Testing</li>
+        <li>API Access</li>
+        <li>Priority Support (24h)</li>
+      </ul>
+      <button class="pricing-btn outline">Contact Sales</button>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="final-cta-glow"></div>
+  <div style="position:relative;z-index:1">
+    <div class="section-label" style="text-align:center">Get Started</div>
+    <h2 style="font-family:'Poppins',sans-serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:800;margin-bottom:1rem">Start Increasing Revenue Today</h2>
+    <p>Join 4,200+ Shopify stores already using CartNinja. Install in 60 seconds, see results in days.</p>
+    <div class="final-actions">
+      <a href="#" class="btn-primary"><i class="fa-solid fa-cart-shopping"></i> Install on Shopify — It's Free</a>
+      <a href="#demo" class="btn-secondary"><i class="fa-solid fa-play"></i> View Live Demo</a>
+    </div>
+    <p style="margin-top:1.2rem;font-size:.8rem;color:var(--muted)">No credit card required · 14-day free trial on paid plans</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#top" class="logo" style="text-decoration:none">
+    <div class="logo-icon"><i class="fa-solid fa-user-ninja"></i></div>
+    CartNinja
+  </a>
+  <p style="color:var(--muted);font-size:.82rem">© 2025 CartNinja. Built for Shopify merchants.</p>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Support</a>
+    <a href="#">Docs</a>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+
+  const upsells = [
+    { emoji: '🧴', name: 'Shoe Care Kit', price: '<s>$24.99</s> → $12.40' },
+    { emoji: '🧦', name: 'Performance Socks (3-pack)', price: '<s>$18.99</s> → $9.99' },
+    { emoji: '🎒', name: 'Waterproof Bag', price: '<s>$49.99</s> → $24.99' },
+  ];
+  let upsellIdx = 0;
+  function updateDemo(val) {
+    const v = parseInt(val);
+    document.getElementById('cartVal').textContent = '$' + v;
+    const target = 100;
+    const pct = Math.min((v / target) * 100, 100);
+    document.getElementById('demoBar').style.width = pct + '%';
+    const remaining = Math.max(target - v, 0);
+    if (remaining <= 0) {
+      document.getElementById('progressMsg').innerHTML = '🎉 <strong style="color:var(--accent3)">FREE shipping unlocked!</strong>';
+    } else {
+      document.getElementById('progressMsg').innerHTML = 'Add <strong style="color:var(--accent3)">$' + remaining + '</strong> more for FREE shipping!';
+    }
+  }
+  function cycleUpsell() {
+    upsellIdx = (upsellIdx + 1) % upsells.length;
+    document.getElementById('upsellEmoji').textContent = upsells[upsellIdx].emoji;
+    document.getElementById('upsellName').textContent = upsells[upsellIdx].name;
+    document.getElementById('upsellPrice').innerHTML = upsells[upsellIdx].price;
+    const msg = document.getElementById('addedMsg');
+    msg.style.display = 'block';
+    setTimeout(() => msg.style.display = 'none', 2000);
+  }
+</script>
+</body>
+</html>
