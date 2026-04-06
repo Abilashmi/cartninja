@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms & Conditions — CartNinja</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+  :root {
+    --bg: #0e0800;
+    --surface: #140c00;
+    --surface2: #1c1100;
+    --border: rgba(255,140,0,0.10);
+    --accent: #f97316;
+    --accent-light: #fb923c;
+    --accent-soft: #fdba74;
+    --accent2: #f59e0b;
+    --accent3: #fbbf24;
+    --green: #10b981;
+    --text: #fff8f0;
+    --muted: #a8896a;
+    --card: rgba(255,140,0,0.05);
+    --grad-primary: linear-gradient(135deg, #ea580c, #f59e0b);
+    --grad-secondary: linear-gradient(135deg, #f97316, #fbbf24);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: .4;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 5vw;
+    backdrop-filter: blur(20px);
+    background: rgba(14,8,0,0.85);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .logo-icon {
+    width: 32px; height: 32px;
+    background: var(--grad-primary);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .95rem;
+    box-shadow: 0 0 16px rgba(249,115,22,0.55);
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: .9rem; transition: color .2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    background: var(--grad-primary);
+    color: #fff;
+    border: none;
+    padding: .55rem 1.3rem;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+    text-decoration: none;
+  }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(249,115,22,.5); }
+
+  /* PAGE HERO */
+  .page-hero {
+    padding: 8rem 5vw 4rem;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .page-hero-glow {
+    position: absolute;
+    top: -100px; left: 50%;
+    transform: translateX(-50%);
+    width: 700px; height: 500px;
+    background: radial-gradient(ellipse, rgba(249,115,22,.15) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .page-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(249,115,22,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(249,115,22,.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%);
+  }
+  .page-hero-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  .page-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: rgba(249,115,22,.12);
+    border: 1px solid rgba(249,115,22,.3);
+    color: #fdba74;
+    padding: .4rem 1rem;
+    border-radius: 100px;
+    font-size: .8rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    animation: fadeUp .6s ease both;
+  }
+  .page-hero h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.1;
+    animation: fadeUp .7s .1s ease both;
+  }
+  .page-hero h1 em {
+    font-style: normal;
+    background: var(--grad-secondary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .page-meta {
+    margin-top: 1rem;
+    font-size: .88rem;
+    color: var(--muted);
+    animation: fadeUp .7s .2s ease both;
+  }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+  /* CONTENT LAYOUT */
+  .content-wrapper {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 4rem 5vw 6rem;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  /* STICKY TOC */
+  .toc {
+    position: sticky;
+    top: 5rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.2rem;
+  }
+  .toc-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--accent-soft);
+    margin-bottom: 1rem;
+  }
+  .toc-list { list-style: none; display: flex; flex-direction: column; gap: .15rem; }
+  .toc-list a {
+    display: block;
+    font-size: .8rem;
+    color: var(--muted);
+    text-decoration: none;
+    padding: .35rem .6rem;
+    border-radius: 8px;
+    transition: color .2s, background .2s;
+    line-height: 1.4;
+  }
+  .toc-list a:hover { color: var(--accent-soft); background: rgba(249,115,22,.08); }
+
+  /* MAIN CONTENT */
+  .doc-content { min-width: 0; }
+  .doc-section {
+    margin-bottom: 2.8rem;
+    padding-bottom: 2.8rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .doc-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .section-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px; height: 28px;
+    background: var(--grad-primary);
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: .72rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: .8rem;
+    box-shadow: 0 4px 12px rgba(249,115,22,.3);
+  }
+  .doc-section h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: .8rem;
+    color: var(--text);
+  }
+  .doc-section p {
+    font-size: .92rem;
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: .7rem;
+  }
+  .doc-section p:last-child { margin-bottom: 0; }
+
+  .doc-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    margin-top: .6rem;
+  }
+  .doc-list li {
+    font-size: .9rem;
+    color: var(--muted);
+    display: flex;
+    align-items: flex-start;
+    gap: .6rem;
+    line-height: 1.6;
+  }
+  .doc-list li::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin-top: .55em;
+    flex-shrink: 0;
+  }
+
+  .doc-list.no-list li::before {
+    content: '✕';
+    width: auto; height: auto;
+    background: none;
+    color: rgba(249,115,22,.6);
+    font-size: .75rem;
+    margin-top: .1em;
+  }
+
+  .contact-box {
+    background: linear-gradient(135deg, rgba(249,115,22,.1), rgba(245,158,11,.06));
+    border: 1px solid rgba(249,115,22,.25);
+    border-radius: 14px;
+    padding: 1.2rem 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: .8rem;
+  }
+  .contact-box-icon {
+    width: 40px; height: 40px;
+    background: var(--grad-primary);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(249,115,22,.3);
+  }
+  .contact-box a {
+    color: var(--accent-soft);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: .9rem;
+  }
+  .contact-box a:hover { color: var(--accent3); }
+  .contact-box span { font-size: .78rem; color: var(--muted); display: block; margin-top: .1rem; }
+
+  .highlight-box {
+    background: rgba(251,191,36,.06);
+    border: 1px solid rgba(251,191,36,.18);
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    margin-top: .8rem;
+  }
+  .highlight-box p {
+    font-size: .88rem;
+    color: #fde68a;
+    margin: 0;
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 5vw;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+  }
+  footer p { color: var(--muted); font-size: .82rem; }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { color: var(--muted); text-decoration: none; font-size: .82rem; transition: color .2s; }
+  .footer-links a:hover { color: var(--text); }
+
+  @media (max-width: 760px) {
+    .content-wrapper { grid-template-columns: 1fr; }
+    .toc { display: none; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">
+    <div class="logo-icon"><i class="fa-solid fa-user-ninja"></i></div>
+    CartNinja
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#features">Features</a></li>
+    <li><a href="index.html#how">How it Works</a></li>
+    <li><a href="index.html#pricing">Pricing</a></li>
+  </ul>
+  <a href="index.html" class="nav-cta">Install on Shopify →</a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-glow"></div>
+  <div class="page-hero-inner">
+    <div class="page-badge"><i class="fa-solid fa-file-contract"></i> Legal</div>
+    <h1>Terms &amp; <em>Conditions</em></h1>
+    <p class="page-meta"><i class="fa-regular fa-calendar"></i> Effective Date: April 2026 &nbsp;·&nbsp; Last updated: April 2026</p>
+  </div>
+</div>
+
+<div class="content-wrapper">
+  <!-- TOC -->
+  <aside class="toc">
+    <div class="toc-title"><i class="fa-solid fa-list"></i> Contents</div>
+    <ul class="toc-list">
+      <li><a href="#s1">1. Acceptance of Terms</a></li>
+      <li><a href="#s2">2. Description of Service</a></li>
+      <li><a href="#s3">3. Eligibility</a></li>
+      <li><a href="#s4">4. Account & Installation</a></li>
+      <li><a href="#s5">5. Subscription & Billing</a></li>
+      <li><a href="#s6">6. Acceptable Use</a></li>
+      <li><a href="#s7">7. Intellectual Property</a></li>
+      <li><a href="#s8">8. Limitation of Liability</a></li>
+      <li><a href="#s9">9. Termination</a></li>
+      <li><a href="#s10">10. Third-Party Services</a></li>
+      <li><a href="#s11">11. Changes to Terms</a></li>
+      <li><a href="#s12">12. Governing Law</a></li>
+      <li><a href="#s13">13. Contact Information</a></li>
+    </ul>
+  </aside>
+
+  <!-- CONTENT -->
+  <main class="doc-content">
+    <p style="font-size:.9rem;color:var(--muted);line-height:1.75;margin-bottom:2.8rem;padding-bottom:2.8rem;border-bottom:1px solid var(--border)">
+      Welcome to The Cart Ninja. By using our website and Shopify app, you agree to the following terms and conditions. Please read them carefully before using our services.
+    </p>
+
+    <div class="doc-section" id="s1">
+      <div class="section-num">01</div>
+      <h2>Acceptance of Terms</h2>
+      <p>By accessing or using The Cart Ninja, you agree to be bound by these Terms. If you do not agree, please do not use our services.</p>
+    </div>
+
+    <div class="doc-section" id="s2">
+      <div class="section-num">02</div>
+      <h2>Description of Service</h2>
+      <p>The Cart Ninja provides tools to enhance Shopify cart functionality, including upsells, rewards tracking, analytics, and discount management.</p>
+    </div>
+
+    <div class="doc-section" id="s3">
+      <div class="section-num">03</div>
+      <h2>Eligibility</h2>
+      <p>You must be at least 18 years old and legally capable of entering into a binding agreement to use our services.</p>
+    </div>
+
+    <div class="doc-section" id="s4">
+      <div class="section-num">04</div>
+      <h2>Account &amp; Installation</h2>
+      <ul class="doc-list">
+        <li>You must provide accurate information when installing the app</li>
+        <li>You are responsible for maintaining your account security</li>
+        <li>You agree not to misuse or attempt to disrupt the service</li>
+      </ul>
+    </div>
+
+    <div class="doc-section" id="s5">
+      <div class="section-num">05</div>
+      <h2>Subscription &amp; Billing</h2>
+      <ul class="doc-list">
+        <li>Some features may require a paid subscription</li>
+        <li>Billing is handled via Shopify's billing system</li>
+        <li>Charges are non-refundable unless otherwise stated</li>
+      </ul>
+    </div>
+
+    <div class="doc-section" id="s6">
+      <div class="section-num">06</div>
+      <h2>Acceptable Use</h2>
+      <p>You agree <strong>NOT</strong> to:</p>
+      <ul class="doc-list no-list">
+        <li>Use the app for illegal or unauthorized purposes</li>
+        <li>Interfere with app functionality or security</li>
+        <li>Attempt to reverse engineer or copy the app</li>
+      </ul>
+    </div>
+
+    <div class="doc-section" id="s7">
+      <div class="section-num">07</div>
+      <h2>Intellectual Property</h2>
+      <p>All content, branding, and technology related to The Cart Ninja are the property of The Cart Ninja and are protected by applicable laws.</p>
+    </div>
+
+    <div class="doc-section" id="s8">
+      <div class="section-num">08</div>
+      <h2>Limitation of Liability</h2>
+      <p>The Cart Ninja is provided "as is" without warranties of any kind. We are not liable for:</p>
+      <ul class="doc-list">
+        <li>Loss of revenue or profits</li>
+        <li>Data loss</li>
+        <li>Business interruptions</li>
+      </ul>
+      <div class="highlight-box">
+        <p><i class="fa-solid fa-triangle-exclamation"></i> &nbsp;No method of internet transmission is 100% secure. Use our services at your own discretion.</p>
+      </div>
+    </div>
+
+    <div class="doc-section" id="s9">
+      <div class="section-num">09</div>
+      <h2>Termination</h2>
+      <p>We reserve the right to suspend or terminate access to our services at any time if these terms are violated.</p>
+    </div>
+
+    <div class="doc-section" id="s10">
+      <div class="section-num">10</div>
+      <h2>Third-Party Services</h2>
+      <p>Our app integrates with Shopify and other tools. We are not responsible for third-party services or disruptions.</p>
+    </div>
+
+    <div class="doc-section" id="s11">
+      <div class="section-num">11</div>
+      <h2>Changes to Terms</h2>
+      <p>We may update these Terms at any time. Continued use of the service constitutes acceptance of the updated terms.</p>
+    </div>
+
+    <div class="doc-section" id="s12">
+      <div class="section-num">12</div>
+      <h2>Governing Law</h2>
+      <p>These Terms shall be governed by and interpreted in accordance with applicable laws.</p>
+    </div>
+
+    <div class="doc-section" id="s13">
+      <div class="section-num">13</div>
+      <h2>Contact Information</h2>
+      <p>For any questions regarding these Terms, reach out to us:</p>
+      <div class="contact-box">
+        <div class="contact-box-icon"><i class="fa-solid fa-envelope"></i></div>
+        <div>
+          <a href="mailto:support@thecartninja.com">support@thecartninja.com</a>
+          <span>We typically respond within 1–2 business days</span>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<footer>
+  <a href="index.html" class="logo" style="text-decoration:none">
+    <div class="logo-icon"><i class="fa-solid fa-user-ninja"></i></div>
+    CartNinja
+  </a>
+  <p style="color:var(--muted);font-size:.82rem">© 2025 CartNinja. Built for Shopify merchants.</p>
+  <div class="footer-links">
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html" style="color:var(--accent-soft)">Terms</a>
+    
+  </div>
+</footer>
+
+</body>
+</html>
